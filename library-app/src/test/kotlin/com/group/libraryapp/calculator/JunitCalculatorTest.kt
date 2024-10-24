@@ -1,7 +1,11 @@
 package com.group.libraryapp.calculator
 
-class CalculatorTest {
+import org.assertj.core.api.AssertionsForInterfaceTypes.assertThat
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
+class JunitCalculatorTest {
+    @Test
     fun addTest() {
         // given
         val calculator = Calculator(5)
@@ -10,11 +14,10 @@ class CalculatorTest {
         calculator.add(3)
 
         // then
-        if (calculator.number != 8) {
-            throw IllegalStateException()
-        }
+        assertThat(calculator.number).isEqualTo(8)
     }
 
+    @Test
     fun minusTest() {
         // given
         val calculator = Calculator(5)
@@ -23,11 +26,10 @@ class CalculatorTest {
         calculator.minus(3)
 
         // then
-        if (calculator.number != 2) {
-            throw IllegalStateException()
-        }
+        assertThat(calculator.number).isEqualTo(2)
     }
 
+    @Test
     fun multiplyTest() {
         // given
         val calculator = Calculator(5)
@@ -36,11 +38,10 @@ class CalculatorTest {
         calculator.multiply(3)
 
         // then
-        if (calculator.number != 15) {
-            throw IllegalStateException()
-        }
+        assertThat(calculator.number).isEqualTo(15)
     }
 
+    @Test
     fun divideTest() {
         // given
         val calculator = Calculator(5)
@@ -49,24 +50,19 @@ class CalculatorTest {
         calculator.divide(2)
 
         // then
-        if (calculator.number != 2) {
-            throw IllegalStateException()
-        }
+        assertThat(calculator.number).isEqualTo(2)
     }
 
+    @Test
     fun divideExceptionTest() {
         // given
         val calculator = Calculator(5)
 
         // when & then
-        try {
+        assertThrows<IllegalArgumentException> {
             calculator.divide(0)
-        } catch(e: IllegalArgumentException) {
-            if(e.message != "0으로 나눌 수 없습니다.") {
-                throw IllegalStateException("메세지가 다릅니다.")
-            }
-            // 테스트 통과
-            return
+        }.apply {
+            assertThat(message).isEqualTo("0으로 나눌 수 없습니다.")
         }
     }
 }
