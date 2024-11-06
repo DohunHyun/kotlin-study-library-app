@@ -16,9 +16,10 @@ class Calculator(
     }
 
     fun divide(operand: Int) {
-        if (operand == 0) {
+        if (operand != 0) {
             this.number /= operand
+        } else {
+            throw IllegalArgumentException("0으로 나눌 수 없습니다.")
         }
-        throw IllegalArgumentException("0으로 나눌 수 없습니다.")
     }
 }
